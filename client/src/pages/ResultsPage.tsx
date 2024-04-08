@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Doughnut, ChartData } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 import { Redirect, useLocation } from "react-router-dom";
 
 import { TransactionContainer } from "components/TxContainer";
@@ -163,14 +163,14 @@ function StatCircle({
   value,
   title,
 }: {
-  data: ChartData<Chart.ChartData>;
+  data: any;
   value: string;
   title: string;
 }) {
   return (
     <div className="px-4">
       <div className="position-relative stat-circle">
-        <Doughnut data={data} legend={STAT_LEGEND} options={STAT_OPTIONS} />
+        <Doughnut data={data} options={STAT_OPTIONS} />
         <div className="donut-content">
           <h2 className="mb-3">{value}</h2>
           <h6 className="text-muted text-center text-uppercase">{title}</h6>
