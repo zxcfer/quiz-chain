@@ -6,14 +6,22 @@ module.exports = function override(config) {
 		crypto: require.resolve("crypto-browserify"),
 		stream: require.resolve("stream-browserify"),
 		vm: require.resolve("vm-browserify"),
-		assert: false, // require.resolve("assert") can be polyfilled here if needed
-		http: false, // require.resolve("stream-http") can be polyfilled here if needed
-		https: false, // require.resolve("https-browserify") can be polyfilled here if needed
-		os: false, // require.resolve("os-browserify") can be polyfilled here if needed
-		url: false, // require.resolve("url") can be polyfilled here if needed
-		zlib: false, // require.resolve("browserify-zlib") can be polyfilled here if needed
+		buffer: require.resolve("buffer"),
+		'process/browser': require.resolve('process/browser'),
+		assert: require.resolve("assert"),
+		http: require.resolve("stream-http"),
+		https: require.resolve("agent-base"),
+		os: require.resolve("os-browserify"),
+		url: require.resolve("url"),
+		zlib: require.resolve("browserify-zlib"),
 	  });
 	  config.resolve.fallback = fallback;
+	  config.plugins = (config.plugins || []).concat([
+		new webpack.ProvidePlugin({
+		  process: "process/browser",
+		  Buffer: ["buffer", "Buffer"],
+		}),
+	  ]);
 	  config.ignoreWarnings = [/Failed to parse source map/];
 	  config.module.rules.push({
 		      test: /\.(js|mjs|jsx)$/,
