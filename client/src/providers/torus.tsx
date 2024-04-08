@@ -94,6 +94,42 @@ export function TorusProvider({ children }: Props) {
     };
   }, [nodeDetails, fetchStatus]);
 
+  const disconnect = React.useCallback(() => {
+    if (true) return;
+  }, []);
+
+  const connect = React.useCallback(
+    (mode: ConnectionMode) => {
+      if (mode === "fresh") {
+        setFetchStatus("fetching");
+        disconnect();
+      } else if (mode === "cached") {
+        setFetchStatus("reloading");
+      }
+    },
+    []
+  );
+
+  const state = React.useMemo(
+    () => ({
+      enabled: ENABLE_TORUS,
+      loaded: !ENABLE_TORUS,
+      loadingWallet: fetchStatus === "fetching" || fetchStatus === "reloading",
+      error,
+      wallet,
+      email: "googleResponse?.getBasicProfile().getEmail()",
+      connect: connect,
+      disconnect: () => {
+        console.log('Disconnecting...');
+      }
+    }),
+    [fetchStatus, error, wallet]
+  );
+
+  return (
+    <StateContext.Provider value={state}>{children}</StateContext.Provider>
+  );
+
 }
 
 export function useTorusState(): State {
