@@ -14,7 +14,6 @@ import { ServerProvider } from "providers/server";
 import { RpcProvider } from "providers/rpc";
 import { SlotProvider } from "providers/slot";
 import { AccountsProvider } from "providers/accounts";
-import { TorusProvider } from "providers/torus";
 import { ConfigProvider } from "providers/config";
 
 // if (process.env.NODE_ENV === "production") {
@@ -30,7 +29,6 @@ ReactDOM.render(
   <ConfigProvider>
     <BrowserRouter>
       <ServerProvider>
-        <TorusProvider>
           <WalletProvider>
             <RpcProvider>
               <AccountsProvider>
@@ -44,7 +42,6 @@ ReactDOM.render(
               </AccountsProvider>
             </RpcProvider>
           </WalletProvider>
-        </TorusProvider>
       </ServerProvider>
     </BrowserRouter>
   </ConfigProvider>,
